@@ -14,8 +14,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from selenium.webdriver.common.keys import Keys
 
-chrome_options = Options()
-chrome_options.add_argument("--headless")
+
 
 def make_reserve(driver, titulo_do_card, week_day):
     def await_element(search_by: By, value: str, timeout=20):
@@ -91,8 +90,13 @@ def main():
         horario = f"SALA DE MUSCULAÇÃO ({start_time}H - {finish_time}H)"
     print(horario)
     
+    chrome_options = Options()
+    chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-sh-usage")
 
-    driver = webdriver.Chrome("./chromedriver.exe", chrome_options=chrome_options) #
+    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options) #
     make_reserve(driver, horario, week_day)
 
 #//*[@id="calendar"]/div/div[2]/div/div[1]/div[1]/p[1]/button/span
