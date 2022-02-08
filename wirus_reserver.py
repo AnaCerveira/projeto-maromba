@@ -108,10 +108,10 @@ def main():
 #schedule.every().monday.at("08:00").do(main)
 #schedule.every().monday.at("09:00").do(main)
 #schedule.every().monday.at("10:00").do(main)
-schedule.every().monday.at("16:00").do(main)
-schedule.every().monday.at("17:00").do(main)
-schedule.every().monday.at("18:00").do(main)
-schedule.every().monday.at("19:00").do(main)
+schedule.every().day.at("16:00").do(main)
+schedule.every().day.at("17:00").do(main)
+schedule.every().day.at("18:00").do(main)
+schedule.every().day.at("19:00").do(main)
 
 
 while True:
