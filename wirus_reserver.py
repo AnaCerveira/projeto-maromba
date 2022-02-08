@@ -115,5 +115,6 @@ schedule.every().monday.at("19:00").do(main)
 
 
 while True:
+    print(datetime.now().strftime("%H:%M:%S"))
     schedule.run_pending()
     time.sleep(1)
