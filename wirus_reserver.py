@@ -97,7 +97,11 @@ def main():
     chrome_options.add_argument("--disable-dev-sh-usage")
 
     driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options) #
-    make_reserve(driver, horario, week_day)
+    try:
+        make_reserve(driver, horario, week_day)
+    except Exception as e:
+        print(e)
+
 
 #//*[@id="calendar"]/div/div[2]/div/div[1]/div[1]/p[1]/button/span
 #//*[@id="calendar"]/div/div[2]/div/div[1]/div[1]/p[1]/button
