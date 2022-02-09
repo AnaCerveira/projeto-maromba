@@ -1,7 +1,8 @@
 import schedule
 import time
-from datetime import datetime
-import os
+from datetime import datetime, timedelta
+import json
+from decouple import config as getenv
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -16,7 +17,7 @@ from selenium.webdriver.common.keys import Keys
 
 
 
-def make_reserve(driver, titulo_do_card, week_day):
+def make_reserve(driver, titulo_do_card, week_day, user):
     def await_element(search_by: By, value: str, timeout=20):
         return WebDriverWait(driver, timeout).until(EC.presence_of_element_located((search_by, value)))
 
@@ -25,8 +26,8 @@ def make_reserve(driver, titulo_do_card, week_day):
     driver.maximize_window()
 
     #logar
-    await_element(By.XPATH, '//*[@id="frm-loginForm-email"]').send_keys(os.environ.get("EMAIL"))
-    await_element(By.XPATH, '//*[@id="frm-loginForm-password"]').send_keys(os.environ.get("PASSWORD"))
+    await_element(By.XPATH, '//*[@id="frm-loginForm-email"]').send_keys(getenv(f"{user}_EMAIL"))
+    await_element(By.XPATH, '//*[@id="frm-loginForm-password"]').send_keys(getenv(f"{user}_PASSWORD"))
     await_element(By.XPATH, '//*[@id="frm-loginForm"]/div[3]/button').click()
     await_element(By.XPATH, '/html/body/div[1]/div/h1/a').click()
 
@@ -46,8 +47,8 @@ def make_reserve(driver, titulo_do_card, week_day):
         
     cards_filtrados = list(filter(None, map(lambda card: acha_horario(card, titulo_do_card), cards)))
     
-    for card in cards_filtrados:
-        print(card.text)
+    # for card in cards_filtrados:
+    #     print(card.text)
     
     #print(cards_filtrados)
     cards_filtrados[week_day].find_element(By.TAG_NAME, 'button').click()
@@ -62,43 +63,33 @@ def make_reserve(driver, titulo_do_card, week_day):
         print('reservei este horário')
     else:
         print('não consegui reservar este horário')
+
+    driver.quit()
     #pyautogui.click(x=675, y=282)
 
     # Janela de reserva, agendar
     #pyautogui.click(x=1000, y=749)
 
-def main():
+def main(horario, user):
+
     # definir o dia da semana
     week_day = datetime.today().weekday()
     if week_day >= 4:
         week_day = 0
     else:
         week_day += 1
-    print(week_day)
-
-    #definir o horário a ser reservado
-    now = datetime.now()
-    current_time = now.strftime("%H:%M:%S")
-    start_time = current_time[0:2]
-    print(start_time)
-    finish_time = int(start_time) + 1
-    print(finish_time)
-    
-    if finish_time <= 9:
-        horario = f"SALA DE MUSCULAÇÃO ({start_time}H - 0{finish_time}H)"
-    else:
-        horario = f"SALA DE MUSCULAÇÃO ({start_time}H - {finish_time}H)"
-    print(horario)
+    print(f"agendando para o dia {week_day} da semana")
     
     chrome_options = Options()
-    chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    chrome_options.binary_location = getenv("GOOGLE_CHROME_BIN")
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-sh-usage")
 
-    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options) #
+    driver = webdriver.Chrome(executable_path=getenv("CHROMEDRIVER_PATH"), chrome_options=chrome_options) #
     try:
-        make_reserve(driver, horario, week_day)
+        print(f"criando reserva para {horario}")
+        make_reserve(driver, horario, week_day, user)
     except Exception as e:
         print(e)
 
@@ -112,13 +103,22 @@ def main():
 #schedule.every().monday.at("08:00").do(main)
 #schedule.every().monday.at("09:00").do(main)
 #schedule.every().monday.at("10:00").do(main)
-schedule.every().day.at("16:00").do(main)
-schedule.every().day.at("17:00").do(main)
-schedule.every().day.at("18:00").do(main)
-schedule.every().day.at("19:00").do(main)
+# schedule.every().day.at("16:00").do(main)
+# schedule.every().day.at("17:00").do(main)
+# schedule.every().day.at("18:00").do(main)
+# schedule.every().day.at("19:00").do(main)
 
+with open("schedule.json", "r") as f:
+      schedules_dict = json.loads(f.read())
+
+for schedule_dict in schedules_dict:
+
+  hour, minute = schedule_dict["initial_hour"].split(":")
+  utc0 = timedelta(hours=float(hour), minutes=float(minute)) + timedelta(hours=3.0)
+  utc0 = str(utc0)[:-3]
+
+  schedule.every().day.at(utc0).do(main, schedule_dict["card_title"], schedule_dict["user"])
 
 while True:
-    print(datetime.now().strftime("%H:%M:%S"))
     schedule.run_pending()
     time.sleep(1)

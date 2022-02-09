@@ -1,3 +1,4 @@
-env
-bot_env
+.env
+botenv
+chromedriver
 chromedriver.exe

@@ -1,1 +1,1 @@
-worker: python wirus_reserver.py
+worker: python bot.py

@@ -8,6 +8,7 @@ idna==3.3
 outcome==1.1.0
 pycparser==2.21
 pyOpenSSL==22.0.0
+python-decouple==3.6
 schedule==1.1.0
 selenium==4.1.0
 sniffio==1.2.0
