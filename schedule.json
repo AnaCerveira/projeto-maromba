@@ -1,11 +1,6 @@
 [
   {
     "user": "ANA",
-    "initial_hour": "08:00",
-    "card_title": "SALA DE MUSCULAÇÃO (08H - 09H)"
-  },
-  {
-    "user": "ANA",
     "initial_hour": "09:00",
     "card_title": "SALA DE MUSCULAÇÃO (09H - 10H)"
   },
@@ -16,13 +11,13 @@
   },
   {
     "user": "ANA",
-    "initial_hour": "10:01",
+    "initial_hour": "10:00:25",
     "card_title": "SALA DE MUSCULAÇÃO (10H - 11H)"
   },
   {
     "user": "ANA",
     "initial_hour": "16:00",
-    "card_title": "SALA DE MUSCULAÇÃO (10H - 11H)"
+    "card_title": "SALA DE MUSCULAÇÃO (16H - 17H)"
   },
   {
     "user": "ANA",
@@ -33,10 +28,5 @@
     "user": "ANA",
     "initial_hour": "18:00",
     "card_title": "SALA DE MUSCULAÇÃO (18H - 19H)"
-  },
-  {
-    "user": "ANA",
-    "initial_hour": "19:00",
-    "card_title": "SALA DE MUSCULAÇÃO (19H - 20H)"
   }
 ]

@@ -35,9 +35,6 @@ def make_reserve(driver, titulo_do_card, week_day, user):
     await_element(By.XPATH, '/html/body/div[2]/div[1]/div[2]')
     await_element(By.TAG_NAME, 'body').send_keys(Keys.PAGE_DOWN)
     await_element(By.XPATH, '//*[@id="calendar"]/div/div/div/div[2]/span/div/div/div[2]/div[2]/div[1]/button')
-    #//*[@id="calendar"]/div/div/div/div[2]/span/div/div/div[2]/div[2]/div[1]
-    #.calendarEvent.calendarEvent-color-blue
-    #.calendarEvent.calendarEvent-color-blue.calendarEvent-inactive
     cards = driver.find_elements(By.CSS_SELECTOR, '.calendarEvent.calendarEvent-color-blue')
     
     def acha_horario(card, texto):
@@ -52,7 +49,6 @@ def make_reserve(driver, titulo_do_card, week_day, user):
     
     #print(cards_filtrados)
     cards_filtrados[week_day].find_element(By.TAG_NAME, 'button').click()
-    #time.sleep(3)
 
     # Clicar em Agendar
     await_element(By.XPATH, '//*[@id="calendar"]/div/div[2]/div/div[1]/div[1]')
@@ -65,10 +61,7 @@ def make_reserve(driver, titulo_do_card, week_day, user):
         print('não consegui reservar este horário')
 
     driver.quit()
-    #pyautogui.click(x=675, y=282)
 
-    # Janela de reserva, agendar
-    #pyautogui.click(x=1000, y=749)
 
 def main(horario, user):
 
@@ -91,22 +84,8 @@ def main(horario, user):
         print(f"criando reserva para {horario}")
         make_reserve(driver, horario, week_day, user)
     except Exception as e:
-        print(e)
+        print(e.__class__)
 
-
-#//*[@id="calendar"]/div/div[2]/div/div[1]/div[1]/p[1]/button/span
-#//*[@id="calendar"]/div/div[2]/div/div[1]/div[1]/p[1]/button
-#//*[@id="booking"]/div/div/span/div/div/div/span[2]/div/span[2]/div/span[1]/div/form/div[4]/div/button
-
-#schedule.every().monday.at("06:00").do(main)
-#schedule.every().monday.at("07:00").do(main)
-#schedule.every().monday.at("08:00").do(main)
-#schedule.every().monday.at("09:00").do(main)
-#schedule.every().monday.at("10:00").do(main)
-# schedule.every().day.at("16:00").do(main)
-# schedule.every().day.at("17:00").do(main)
-# schedule.every().day.at("18:00").do(main)
-# schedule.every().day.at("19:00").do(main)
 
 print('Hello world!')
 with open("schedule.json", "r") as f:
