@@ -108,6 +108,7 @@ def main(horario, user):
 # schedule.every().day.at("18:00").do(main)
 # schedule.every().day.at("19:00").do(main)
 
+print('Hello world!')
 with open("schedule.json", "r") as f:
       schedules_dict = json.loads(f.read())
 
