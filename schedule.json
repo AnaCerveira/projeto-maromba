@@ -13,20 +13,5 @@
     "user": "ANA",
     "initial_hour": "10:01",
     "card_title": "SALA DE MUSCULAÇÃO (10H - 11H)"
-  },
-  {
-    "user": "ANA",
-    "initial_hour": "16:00",
-    "card_title": "SALA DE MUSCULAÇÃO (16H - 17H)"
-  },
-  {
-    "user": "ANA",
-    "initial_hour": "17:00",
-    "card_title": "SALA DE MUSCULAÇÃO (17H - 18H)"
-  },
-  {
-    "user": "ANA",
-    "initial_hour": "18:00",
-    "card_title": "SALA DE MUSCULAÇÃO (18H - 19H)"
   }
 ]
