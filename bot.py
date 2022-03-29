@@ -99,8 +99,8 @@ for schedule_dict in schedules_dict:
   utc0 = timedelta(hours=float(hour), minutes=float(minute)) + timedelta(hours=3.0)
   utc0 = str(utc0)[:-3]
   print(hour)
-  if hour == "08":
-      utc0 = "00:55"
+  #if hour == "08":
+      #utc0 = "03:57"
   print(utc0)
 
   if "monday" in schedule_dict["dias"]:
@@ -118,6 +118,7 @@ for schedule_dict in schedules_dict:
   if "friday" in schedule_dict["dias"]:
       print(schedule_dict)
       schedule.every().thursday.at(utc0).do(main, schedule_dict["card_title"], schedule_dict["user"])
+#print(schedule.List)
   #schedule.every().day.at(utc0).do(main, schedule_dict["card_title"], schedule_dict["user"], schedule_dict["dias"])
   
 
