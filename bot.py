@@ -63,8 +63,8 @@ def make_reserve(driver, titulo_do_card, week_day, user):
     driver.quit()
 
 
-def main(horario, user, dias):
-
+def main(horario, user):
+    print("open main function")
     # definir o dia da semana
     week_day = datetime.today().weekday()
     if week_day >= 4:
@@ -78,16 +78,15 @@ def main(horario, user, dias):
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-sh-usage")
 
-    if week_day == dias:
-        print(f"agendando para o dia {week_day} da semana")
-        driver = webdriver.Chrome(executable_path=getenv("CHROMEDRIVER_PATH"), chrome_options=chrome_options) #
-        try:
-            print(f"criando reserva para {horario}")
-            make_reserve(driver, horario, week_day, user)
-        except Exception as e:
-            print(e.__class__)
-    else:
-        print(f"o dia {week_day} para {user} não está incluso na lista")
+    
+    print(f"agendando para o dia {week_day} da semana")
+    driver = webdriver.Chrome(executable_path=getenv("CHROMEDRIVER_PATH"), chrome_options=chrome_options) #
+    try:
+        print(f"criando reserva para {horario}")
+        make_reserve(driver, horario, week_day, user)
+    except Exception as e:
+        print(e.__class__)
+
 
 
 print('Hello world!')
@@ -99,8 +98,28 @@ for schedule_dict in schedules_dict:
   hour, minute = schedule_dict["initial_hour"].split(":")
   utc0 = timedelta(hours=float(hour), minutes=float(minute)) + timedelta(hours=3.0)
   utc0 = str(utc0)[:-3]
+  print(hour)
+  if hour == "08":
+      utc0 = "00:55"
+  print(utc0)
 
-  schedule.every().day.at(utc0).do(main, schedule_dict["card_title"], schedule_dict["user"], schedule_dict["dias"])
+  if "monday" in schedule_dict["dias"]:
+      print(schedule_dict)
+      schedule.every().sunday.at(utc0).do(main, schedule_dict["card_title"], schedule_dict["user"])
+  if "tuesday" in schedule_dict["dias"]:
+      print(schedule_dict)
+      schedule.every().monday.at(utc0).do(main, schedule_dict["card_title"], schedule_dict["user"])
+  if "wednesday" in schedule_dict["dias"]:
+      print(schedule_dict)
+      schedule.every().tuesday.at(utc0).do(main, schedule_dict["card_title"], schedule_dict["user"])
+  if "thursday" in schedule_dict["dias"]:
+      print(schedule_dict)
+      schedule.every().wednesday.at(utc0).do(main, schedule_dict["card_title"], schedule_dict["user"])
+  if "friday" in schedule_dict["dias"]:
+      print(schedule_dict)
+      schedule.every().thursday.at(utc0).do(main, schedule_dict["card_title"], schedule_dict["user"])
+  #schedule.every().day.at(utc0).do(main, schedule_dict["card_title"], schedule_dict["user"], schedule_dict["dias"])
+  
 
 while True:
     schedule.run_pending()
