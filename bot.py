@@ -63,7 +63,7 @@ def make_reserve(driver, titulo_do_card, week_day, user):
     driver.quit()
 
 
-def main(horario, user):
+def main(horario, user, dias):
 
     # definir o dia da semana
     week_day = datetime.today().weekday()
@@ -71,7 +71,6 @@ def main(horario, user):
         week_day = 0
     else:
         week_day += 1
-    print(f"agendando para o dia {week_day} da semana")
     
     chrome_options = Options()
     chrome_options.binary_location = getenv("GOOGLE_CHROME_BIN")
@@ -79,12 +78,16 @@ def main(horario, user):
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-sh-usage")
 
-    driver = webdriver.Chrome(executable_path=getenv("CHROMEDRIVER_PATH"), chrome_options=chrome_options) #
-    try:
-        print(f"criando reserva para {horario}")
-        make_reserve(driver, horario, week_day, user)
-    except Exception as e:
-        print(e.__class__)
+    if week_day == dias:
+        print(f"agendando para o dia {week_day} da semana")
+        driver = webdriver.Chrome(executable_path=getenv("CHROMEDRIVER_PATH"), chrome_options=chrome_options) #
+        try:
+            print(f"criando reserva para {horario}")
+            make_reserve(driver, horario, week_day, user)
+        except Exception as e:
+            print(e.__class__)
+    else:
+        print(f"o dia {week_day} para {user} não está incluso na lista")
 
 
 print('Hello world!')
@@ -97,7 +100,7 @@ for schedule_dict in schedules_dict:
   utc0 = timedelta(hours=float(hour), minutes=float(minute)) + timedelta(hours=3.0)
   utc0 = str(utc0)[:-3]
 
-  schedule.every().day.at(utc0).do(main, schedule_dict["card_title"], schedule_dict["user"])
+  schedule.every().day.at(utc0).do(main, schedule_dict["card_title"], schedule_dict["user"], schedule_dict["dias"])
 
 while True:
     schedule.run_pending()

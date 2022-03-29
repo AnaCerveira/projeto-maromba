@@ -1,12 +1,32 @@
 [
   {
     "user": "ANA",
-    "initial_hour": "08:00",
-    "card_title": "SALA DE MUSCULAÇÃO (08H - 09H)"
+    "initial_hour": "23:00",
+    "card_title": "SALA DE MUSCULAÇÃO (06H - 07H)",
+    "dias": 0
   },
   {
     "user": "MAIA",
     "initial_hour": "07:00",
-    "card_title": "SALA DE MUSCULAÇÃO (07H - 08H)"
+    "card_title": "SALA DE MUSCULAÇÃO (07H - 08H)",
+    "dias": 0
+  },
+  {
+    "user": "EURO",
+    "initial_hour": "13:00",
+    "card_title": "SALA DE MUSCULAÇÃO (13H - 14H)",
+    "dias": 2
+  },
+  {
+    "user": "EURO",
+    "initial_hour": "19:00",
+    "card_title": "SALA DE MUSCULAÇÃO (19H - 20H)",
+    "dias": 3
+  },
+  {
+    "user": "EURO",
+    "initial_hour": "18:00",
+    "card_title": "SALA DE MUSCULAÇÃO (18H - 19H)",
+    "dias": 4
   }
 ]
