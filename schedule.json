@@ -3,7 +3,7 @@
     "user": "ANA",
     "initial_hour": "08:00",
     "card_title": "SALA DE MUSCULAÇÃO (08H - 09H)",
-    "dias": "wednesday"
+    "dias": "wednesday", "friday"
   },
   {
     "user": "MAIA",
@@ -13,8 +13,8 @@
   },
   {
     "user": "EURO",
-    "initial_hour": "13:00",
-    "card_title": "SALA DE MUSCULAÇÃO (13H - 14H)",
+    "initial_hour": "12:00",
+    "card_title": "SALA DE MUSCULAÇÃO (12H - 13H)",
     "dias": "wednesday"
   },
   {
