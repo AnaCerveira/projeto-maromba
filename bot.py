@@ -120,8 +120,9 @@ for schedule_dict in schedules_dict:
       schedule.every().thursday.at(utc0).do(main, schedule_dict["card_title"], schedule_dict["user"])
 #print(schedule.List)
   #schedule.every().day.at(utc0).do(main, schedule_dict["card_title"], schedule_dict["user"], schedule_dict["dias"])
-  
 
+all_jobs = schedule.get_jobs()
+print(all_jobs)
 while True:
     schedule.run_pending()
     time.sleep(1)
