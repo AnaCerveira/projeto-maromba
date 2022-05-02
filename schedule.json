@@ -1,0 +1,26 @@
+[
+  {
+    "user": "MAIA",
+    "initial_hour": "07:00",
+    "card_title": "SALA DE MUSCULAÇÃO (07H - 08H)",
+    "dias": "monday, tuesday, thursday"
+  },
+  {
+    "user": "EURO",
+    "initial_hour": "12:00",
+    "card_title": "SALA DE MUSCULAÇÃO (12H - 13H)",
+    "dias": "wednesday"
+  },
+  {
+    "user": "EURO",
+    "initial_hour": "19:00",
+    "card_title": "SALA DE MUSCULAÇÃO (19H - 20H)",
+    "dias": "thursday"
+  },
+  {
+    "user": "EURO",
+    "initial_hour": "18:00",
+    "card_title": "SALA DE MUSCULAÇÃO (18H - 19H)",
+    "dias": "friday"
+  }
+]
