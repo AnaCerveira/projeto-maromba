@@ -80,7 +80,7 @@ def main(horario, user):
 
     
     print(f"agendando para o dia {week_day} da semana")
-    driver = webdriver.Chrome(executable_path=getenv("CHROMEDRIVER_PATH"), chrome_options=chrome_options) #
+    driver = webdriver.Chrome(executable_path=getenv("CHROMEDRIVER_PATH"), options=chrome_options) #
     try:
         print(f"criando reserva para {horario}")
         make_reserve(driver, horario, week_day, user)
@@ -123,6 +123,7 @@ for schedule_dict in schedules_dict:
 
 all_jobs = schedule.get_jobs()
 print(all_jobs)
+main("SALA DE MUSCULAÇÃO (08H - 09H)", "ANA")
 while True:
     schedule.run_pending()
     time.sleep(1)
