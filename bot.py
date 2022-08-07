@@ -123,7 +123,7 @@ for schedule_dict in schedules_dict:
 
 all_jobs = schedule.get_jobs()
 print(all_jobs)
-main("SALA DE MUSCULAÇÃO (08H - 09H)", "ANA")
+#main("SALA DE MUSCULAÇÃO (08H - 09H)", "ANA")
 while True:
     schedule.run_pending()
     time.sleep(1)
