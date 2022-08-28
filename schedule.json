@@ -12,9 +12,15 @@
     "dias": "monday"
   },
   {
-    "user": "ANA",
-    "initial_hour": "20:00",
-    "card_title": "SALA DE MUSCULAÇÃO (20H - 21H)",
-    "dias": "thursday"
+    "user": "KIT",
+    "initial_hour": "07:00",
+    "card_title": "SALA DE MUSCULAÇÃO (07H - 08H)",
+    "dias": "monday, thursday"
+  },
+  {
+    "user": "KIT",
+    "initial_hour": "08:01",
+    "card_title": "SALA DE MUSCULAÇÃO (08H - 09H)",
+    "dias": "monday, thursday"
   }
 ]
