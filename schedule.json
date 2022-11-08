@@ -10,5 +10,11 @@
     "initial_hour": "10:00",
     "card_title": "SALA DE MUSCULAÇÃO (10H - 11H)",
     "dias": "monday"
+  },
+  {
+    "user": "KIT",
+    "initial_hour": "08:00",
+    "card_title": "SALA DE MUSCULAÇÃO (08H - 09H)",
+    "dias": "monday, thursday"
   }
 ]
