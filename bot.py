@@ -111,7 +111,8 @@ for schedule_dict in schedules_dict:
       schedule.every().monday.at(utc0).do(main, schedule_dict["card_title"], schedule_dict["user"])
   if "wednesday" in schedule_dict["dias"]:
       print(schedule_dict)
-      schedule.every().tuesday.at(utc0).do(main, schedule_dict["card_title"], schedule_dict["user"])
+      #schedule.every().tuesday.at(utc0).do(main, schedule_dict["card_title"], schedule_dict["user"])
+      schedule.every(3).minutes.do(main, schedule_dict["card_title"], schedule_dict["user"])
   if "thursday" in schedule_dict["dias"]:
       print(schedule_dict)
       schedule.every().wednesday.at(utc0).do(main, schedule_dict["card_title"], schedule_dict["user"])
