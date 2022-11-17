@@ -123,9 +123,10 @@ for schedule_dict in schedules_dict:
   #schedule.every().day.at(utc0).do(main, schedule_dict["card_title"], schedule_dict["user"], schedule_dict["dias"])
 
 all_jobs = schedule.get_jobs()
+
+#schedule.every().wednesday.at("21:05").do(main, "SALA DE MUSCULAÇÃO (20H - 21H)", "ANA")
 print(all_jobs)
-schedule.every().wednesday.at("21:05").do(main, "SALA DE MUSCULAÇÃO (20H - 21H)", "ANA")
-#main("SALA DE MUSCULAÇÃO (08H - 09H)", "ANA")
+main("SALA DE MUSCULAÇÃO (20H - 21H)", "ANA")
 while True:
     schedule.run_pending()
     time.sleep(1)
