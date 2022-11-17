@@ -3,6 +3,8 @@ import time
 from datetime import datetime, timedelta
 import json
 from decouple import config as getenv
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -41,25 +43,31 @@ def make_reserve(driver, titulo_do_card, week_day, user):
     print("encontrei quadro de horários")
     await_element(By.TAG_NAME, 'body').send_keys(Keys.PAGE_DOWN)
     print("page down")
-    await_element(By.XPATH, '//*[@id="calendar"]/div/div/div/div[2]/span/div/div/div[2]/div[2]/div[1]/button')
-    #await_element(By.XPATH, '//*[@id="calendar"]/div/div/div/div[2]/span/div/div/div[5]/div[2]/div[1]/button/i/svg')
+    #await_element(By.XPATH, '//*[@id="calendar"]/div/div/div/div[2]/span/div/div/div[2]/div[2]/div[1]/button')
+    await_element(By.XPATH, '//*[@id="calendar"]/div/div/div/div[2]/span/div/div/div[5]/div[2]/div[6]/button/i')
     print("encontrei cards")
-    cards = driver.find_elements(By.CSS_SELECTOR, '.calendarEvent.calendarEvent-color-blue')
-    print("salvei cards")
+    #cards = driver.find_elements(By.CSS_SELECTOR, '.calendarEvent.calendarEvent-color-blue')
+    cards = driver.find_elements(By.CLASS_NAME, 'calendarEvent')
+    print(cards)
+    print(cards[0].text)
     
     def acha_horario(card, texto):
-        if texto in card.text:
+        if texto in card.text and "calendarEvent-inactive" not in card.get_attribute("class"):
             return card
         return None
-        
-    cards_filtrados = list(filter(None, map(lambda card: acha_horario(card, titulo_do_card), cards)))
+    
+    print("só um testinho é noix", list(filter(lambda card: acha_horario(card, titulo_do_card), cards)))
+    cards_filtrados = list(filter(lambda card: acha_horario(card, titulo_do_card), cards))
     print("filtrei cards")
 
     # for card in cards_filtrados:
     #     print(card.text)
     
-    #print(cards_filtrados)
-    cards_filtrados[week_day].find_element(By.TAG_NAME, 'button').click()
+    print(cards_filtrados, "ablublebleuehbdauwdhwu")
+    try:
+        cards_filtrados[0].find_element(By.TAG_NAME, 'button').click()
+    except:
+        print("DEU MERDAAAAAAA, N TEM CARD AAAAAAAAAAAAAAAA")
     print("cliquei no card selecionado")
 
     # Clicar em Agendar
@@ -95,8 +103,8 @@ def main(horario, user):
 
     
     print(f"agendando para o dia {week_day} da semana")
-    driver = webdriver.Chrome(executable_path=getenv("CHROMEDRIVER_PATH"), options=chrome_options) #
-    #driver = webdriver.Chrome(executable_path=getenv("C:/Users/Ana/Documents/Wirus/heroku/projeto-maromba/chromedriver"), options=chrome_options)
+    driver = webdriver.Chrome(executable_path=getenv("CHROMEDRIVER_PATH"), options=chrome_options)
+    #driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
     try:
         print(f"criando reserva para {horario}")
         make_reserve(driver, horario, week_day, user)
@@ -136,13 +144,13 @@ for schedule_dict in schedules_dict:
       print(schedule_dict)
       schedule.every().thursday.at(utc0).do(main, schedule_dict["card_title"], schedule_dict["user"])
 #print(schedule.List)
-#schedule.every().day.at(utc0).do(main, schedule_dict["card_title"], schedule_dict["user"], schedule_dict["dias"])
+  #schedule.every().day.at(utc0).do(main, schedule_dict["card_title"], schedule_dict["user"], schedule_dict["dias"])
 
 all_jobs = schedule.get_jobs()
 
 #schedule.every().wednesday.at("21:05").do(main, "SALA DE MUSCULAÇÃO (20H - 21H)", "ANA")
 print(all_jobs)
-main("SALA DE MUSCULAÇÃO (20H - 21H)", "ANA")
+main("PILATES (18H - 19H)", "ANA")
 while True:
     schedule.run_pending()
     time.sleep(1)
