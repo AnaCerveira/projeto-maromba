@@ -24,18 +24,27 @@ def make_reserve(driver, titulo_do_card, week_day, user):
    
     driver.get("https://cefer.reservio.com/client/login")
     driver.maximize_window()
+    print("abri a página de login")
 
     #logar
     await_element(By.XPATH, '//*[@id="frm-loginForm-email"]').send_keys(getenv(f"{user}_EMAIL"))
+    print("inseri o email")
     await_element(By.XPATH, '//*[@id="frm-loginForm-password"]').send_keys(getenv(f"{user}_PASSWORD"))
+    print("inseri a senha")
     await_element(By.XPATH, '//*[@id="frm-loginForm"]/div[3]/button').click()
+    print("cliquei em login")
     await_element(By.XPATH, '/html/body/div[1]/div/h1/a').click()
+    print("volte ao home")
 
     #procurar o horário desejado
     await_element(By.XPATH, '/html/body/div[2]/div[1]/div[2]')
+    print("encontrei quadro de horários")
     await_element(By.TAG_NAME, 'body').send_keys(Keys.PAGE_DOWN)
+    print("page down")
     await_element(By.XPATH, '//*[@id="calendar"]/div/div/div/div[2]/span/div/div/div[2]/div[2]/div[1]/button')
+    print("encontrei cards")
     cards = driver.find_elements(By.CSS_SELECTOR, '.calendarEvent.calendarEvent-color-blue')
+    print("salvei cards")
     
     def acha_horario(card, texto):
         if texto in card.text:
@@ -43,18 +52,23 @@ def make_reserve(driver, titulo_do_card, week_day, user):
         return None
         
     cards_filtrados = list(filter(None, map(lambda card: acha_horario(card, titulo_do_card), cards)))
-    
+    print("filtrei cards")
+
     # for card in cards_filtrados:
     #     print(card.text)
     
     #print(cards_filtrados)
     cards_filtrados[week_day].find_element(By.TAG_NAME, 'button').click()
+    print("cliquei no card selecionado")
 
     # Clicar em Agendar
     await_element(By.XPATH, '//*[@id="calendar"]/div/div[2]/div/div[1]/div[1]')
+    print("encontrei o botão de agendar")
     if len(driver.find_elements(By.XPATH, '//*[@id="calendar"]/div/div[2]/div/div[1]/div[1]/p[1]/button')) > 0:
         await_element(By.XPATH, '//*[@id="calendar"]/div/div[2]/div/div[1]/div[1]/p[1]/button').click()
+        print("cliquei em agendar")
         await_element(By.XPATH, '//*[@id="booking"]/div/div/span/div/div/div/span[2]/div/span[2]/div/span[1]/div/form/div[4]/div/button').click()
+        print("cliquei em confirmar reserva")
         time.sleep(3)
         print('reservei este horário')
     else:
