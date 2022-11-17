@@ -48,22 +48,22 @@ def make_reserve(driver, titulo_do_card, week_day, user):
     print("encontrei cards")
     #cards = driver.find_elements(By.CSS_SELECTOR, '.calendarEvent.calendarEvent-color-blue')
     cards = driver.find_elements(By.CLASS_NAME, 'calendarEvent')
-    print(cards)
-    print(cards[0].text)
+    #print(cards)
+    #print(cards[0].text)
     
     def acha_horario(card, texto):
         if texto in card.text and "calendarEvent-inactive" not in card.get_attribute("class"):
             return card
         return None
     
-    print("só um testinho é noix", list(filter(lambda card: acha_horario(card, titulo_do_card), cards)))
+    #print("só um testinho é noix", list(filter(lambda card: acha_horario(card, titulo_do_card), cards)))
     cards_filtrados = list(filter(lambda card: acha_horario(card, titulo_do_card), cards))
     print("filtrei cards")
 
     # for card in cards_filtrados:
     #     print(card.text)
     
-    print(cards_filtrados, "ablublebleuehbdauwdhwu")
+    #print(cards_filtrados, "ablublebleuehbdauwdhwu")
     try:
         cards_filtrados[0].find_element(By.TAG_NAME, 'button').click()
     except:
@@ -123,8 +123,6 @@ for schedule_dict in schedules_dict:
   utc0 = timedelta(hours=float(hour), minutes=float(minute)) + timedelta(hours=3.0)
   utc0 = str(utc0)[:-3]
   print(hour)
-  #if hour == "08":
-      #utc0 = "03:57"
   print(utc0)
 
   if "monday" in schedule_dict["dias"]:
@@ -148,7 +146,6 @@ for schedule_dict in schedules_dict:
 
 all_jobs = schedule.get_jobs()
 
-#schedule.every().wednesday.at("21:05").do(main, "SALA DE MUSCULAÇÃO (20H - 21H)", "ANA")
 print(all_jobs)
 main("PILATES (18H - 19H)", "ANA")
 while True:
