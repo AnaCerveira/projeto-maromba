@@ -42,8 +42,8 @@ def make_reserve(driver, titulo_do_card, week_day, user):
     await_element(By.TAG_NAME, 'body').send_keys(Keys.PAGE_DOWN)
     print("page down")
     #await_element(By.XPATH, '//*[@id="calendar"]/div/div/div/div[2]/span/div/div/div[2]/div[2]/div[1]/button')
-    await_element(By.XPATH, '//*[@id="calendar"]/div/div/div/div[2]/span/div/div/div[5]/div[2]/div[1]/button/i/svg')
-    print("encontrei cards")
+    #await_element(By.XPATH, '//*[@id="calendar"]/div/div/div/div[2]/span/div/div/div[5]/div[2]/div[1]/button/i/svg')
+    #print("encontrei cards")
     cards = driver.find_elements(By.CSS_SELECTOR, '.calendarEvent.calendarEvent-color-blue')
     print("salvei cards")
     
