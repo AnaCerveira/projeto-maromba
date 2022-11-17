@@ -147,7 +147,7 @@ for schedule_dict in schedules_dict:
 all_jobs = schedule.get_jobs()
 
 print(all_jobs)
-main("PILATES (18H - 19H)", "ANA")
+#main("PILATES (18H - 19H)", "ANA")
 while True:
     schedule.run_pending()
     time.sleep(1)
