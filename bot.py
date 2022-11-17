@@ -41,9 +41,9 @@ def make_reserve(driver, titulo_do_card, week_day, user):
     print("encontrei quadro de horários")
     await_element(By.TAG_NAME, 'body').send_keys(Keys.PAGE_DOWN)
     print("page down")
-    #await_element(By.XPATH, '//*[@id="calendar"]/div/div/div/div[2]/span/div/div/div[2]/div[2]/div[1]/button')
+    await_element(By.XPATH, '//*[@id="calendar"]/div/div/div/div[2]/span/div/div/div[2]/div[2]/div[1]/button')
     #await_element(By.XPATH, '//*[@id="calendar"]/div/div/div/div[2]/span/div/div/div[5]/div[2]/div[1]/button/i/svg')
-    #print("encontrei cards")
+    print("encontrei cards")
     cards = driver.find_elements(By.CSS_SELECTOR, '.calendarEvent.calendarEvent-color-blue')
     print("salvei cards")
     
@@ -96,6 +96,7 @@ def main(horario, user):
     
     print(f"agendando para o dia {week_day} da semana")
     driver = webdriver.Chrome(executable_path=getenv("CHROMEDRIVER_PATH"), options=chrome_options) #
+    #driver = webdriver.Chrome(executable_path=getenv("C:/Users/Ana/Documents/Wirus/heroku/projeto-maromba/chromedriver"), options=chrome_options)
     try:
         print(f"criando reserva para {horario}")
         make_reserve(driver, horario, week_day, user)
@@ -135,7 +136,7 @@ for schedule_dict in schedules_dict:
       print(schedule_dict)
       schedule.every().thursday.at(utc0).do(main, schedule_dict["card_title"], schedule_dict["user"])
 #print(schedule.List)
-  #schedule.every().day.at(utc0).do(main, schedule_dict["card_title"], schedule_dict["user"], schedule_dict["dias"])
+#schedule.every().day.at(utc0).do(main, schedule_dict["card_title"], schedule_dict["user"], schedule_dict["dias"])
 
 all_jobs = schedule.get_jobs()
 
